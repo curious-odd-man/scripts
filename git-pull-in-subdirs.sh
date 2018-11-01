@@ -3,11 +3,12 @@
 ORIGIN="${1:-origin}"
 BRANCH="${2:-}"
 
-pushd .
+pushd . > /dev/null
 while IFS= read -r d; do 
-    pushd .
+    pushd . > /dev/null
 	cd "$d/../"
+	echo "pulling in `pwd`"
 	git pull $ORIGIN $BRANCH
-	popd
+	popd > /dev/null
 done < <(find . -name ".git")
-popd
+popd > /dev/null
